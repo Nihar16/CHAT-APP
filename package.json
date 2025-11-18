@@ -1,0 +1,11 @@
+{
+  "name": "CHAT-APP",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/Nihar16/CHAT-APP.git",
+  "author": "Nihar Mane <95009543+Nihar16@users.noreply.github.com>",
+  "license": "MIT",
+  "dependencies": {
+    "graphql-yoga": "^5.16.2"
+  }
+}
