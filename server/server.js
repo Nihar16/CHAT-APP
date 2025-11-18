@@ -4,29 +4,30 @@ const { createServer } = require('http');
 const MESSAGES = [];
 
 const typeDefs = `
-  type Message {
-    id: ID!
-    content: String! 
-  }
+    type Message {
+        id: ID!
+        user: String!
+        content: String! 
+    }
 
-  type Query {
-    messages: [Message!]!
+    type Query {
+        messages: [Message!]!
+    }
 
-   type Mutation {
-    postMessage(user: String!, content: String!): ID!
-   }
-  }
+    type Mutation {
+        postMessage(user: String!, content: String!): ID!
+    }
 `;
 
 const resolvers = {
     Query: {
-        messages: () => messages,
+        messages: () => MESSAGES,
     },
 
     Mutation: {
         postMessage: (parent, { user, content }) => {
-            const id = messages.length + 1;
-            messages.push({ id, user, content });
+            const id = String(MESSAGES.length + 1);
+            MESSAGES.push({ id, user, content });
             return id;
         }
     }
