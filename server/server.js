@@ -1,4 +1,5 @@
-const { GraphQLServer } = require('graphql-yoga');
+const { createYoga, createSchema } = require('graphql-yoga');
+const { createServer } = require('http');
 
 const MESSAGES = [];
 
@@ -13,13 +14,22 @@ const typeDefs = `
   }
 `;
 
-const Resolvers = {
+const resolvers = {
     Query: {
-        messages: () => messages,
+        messages: () => MESSAGES,
     }
 };
 
 const Port = 4000;
 
-const server = new GraphQLServer(typeDefs, Resolvers);
-server.start(() => console.log(`Server is running on http://localhost:${Port}/`));
+const schema = createSchema({
+    typeDefs,
+    resolvers
+});
+
+const yoga = createYoga({ schema });
+const server = createServer(yoga);
+
+server.listen(Port, () => {
+    console.log(`Server is running on http://localhost:${Port}/graphql`);
+});
