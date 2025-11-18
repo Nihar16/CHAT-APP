@@ -1,5 +1,7 @@
 const { GraphQLServer } = require('graphql-yoga');
 
+const MESSAGES = [];
+
 const typeDefs = `
   type Message {
     id: ID!
@@ -13,11 +15,11 @@ const typeDefs = `
 
 const Resolvers = {
     Query: {
-        messages: () => MESSAGES,
+        messages: () => messages,
     }
 };
 
 const Port = 4000;
 
-const server = new GraphQLServer();
+const server = new GraphQLServer(typeDefs, Resolvers);
 server.start(() => console.log(`Server is running on http://localhost:${Port}/`));
