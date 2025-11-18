@@ -11,12 +11,24 @@ const typeDefs = `
 
   type Query {
     messages: [Message!]!
+
+   type Mutation {
+    postMessage(user: String!, content: String!): ID!
+   }
   }
 `;
 
 const resolvers = {
     Query: {
-        messages: () => MESSAGES,
+        messages: () => messages,
+    },
+
+    Mutation: {
+        postMessage: (parent, { user, content }) => {
+            const id = messages.length + 1;
+            MESSAGES.push({ id, user, content });
+            return id;
+        }
     }
 };
 
