@@ -26,7 +26,7 @@ const resolvers = {
     Mutation: {
         postMessage: (parent, { user, content }) => {
             const id = messages.length + 1;
-            MESSAGES.push({ id, user, content });
+            messages.push({ id, user, content });
             return id;
         }
     }
